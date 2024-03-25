@@ -1,0 +1,16 @@
+C:\Users\ea\Downloads\Asp.Net-Core-Web-API-and-Angular-7-CRUD-master\WebAPI\WebAPI\obj\Debug\netcoreapp2.1\WebAPI.csprojAssemblyReference.cache
+C:\Users\ea\Downloads\Asp.Net-Core-Web-API-and-Angular-7-CRUD-master\WebAPI\WebAPI\obj\Debug\netcoreapp2.1\WebAPI.dll.config
+C:\Users\ea\Downloads\Asp.Net-Core-Web-API-and-Angular-7-CRUD-master\WebAPI\WebAPI\obj\Debug\netcoreapp2.1\WebAPI.csproj.CoreCompileInputs.cache
+C:\Users\ea\Downloads\Asp.Net-Core-Web-API-and-Angular-7-CRUD-master\WebAPI\WebAPI\obj\Debug\netcoreapp2.1\WebAPI.RazorAssemblyInfo.cache
+C:\Users\ea\Downloads\Asp.Net-Core-Web-API-and-Angular-7-CRUD-master\WebAPI\WebAPI\obj\Debug\netcoreapp2.1\WebAPI.RazorAssemblyInfo.cs
+C:\Users\ea\Downloads\Asp.Net-Core-Web-API-and-Angular-7-CRUD-master\WebAPI\WebAPI\obj\Debug\netcoreapp2.1\WebAPI.AssemblyInfoInputs.cache
+C:\Users\ea\Downloads\Asp.Net-Core-Web-API-and-Angular-7-CRUD-master\WebAPI\WebAPI\obj\Debug\netcoreapp2.1\WebAPI.AssemblyInfo.cs
+C:\Users\ea\Downloads\Asp.Net-Core-Web-API-and-Angular-7-CRUD-master\WebAPI\WebAPI\bin\Debug\netcoreapp2.1\WebAPI.dll.config
+C:\Users\ea\Downloads\Asp.Net-Core-Web-API-and-Angular-7-CRUD-master\WebAPI\WebAPI\bin\Debug\netcoreapp2.1\WebAPI.deps.json
+C:\Users\ea\Downloads\Asp.Net-Core-Web-API-and-Angular-7-CRUD-master\WebAPI\WebAPI\bin\Debug\netcoreapp2.1\WebAPI.runtimeconfig.json
+C:\Users\ea\Downloads\Asp.Net-Core-Web-API-and-Angular-7-CRUD-master\WebAPI\WebAPI\bin\Debug\netcoreapp2.1\WebAPI.runtimeconfig.dev.json
+C:\Users\ea\Downloads\Asp.Net-Core-Web-API-and-Angular-7-CRUD-master\WebAPI\WebAPI\bin\Debug\netcoreapp2.1\WebAPI.dll
+C:\Users\ea\Downloads\Asp.Net-Core-Web-API-and-Angular-7-CRUD-master\WebAPI\WebAPI\obj\Debug\netcoreapp2.1\WebAPI.RazorTargetAssemblyInfo.cache
+C:\Users\ea\Downloads\Asp.Net-Core-Web-API-and-Angular-7-CRUD-master\WebAPI\WebAPI\bin\Debug\netcoreapp2.1\WebAPI.pdb
+C:\Users\ea\Downloads\Asp.Net-Core-Web-API-and-Angular-7-CRUD-master\WebAPI\WebAPI\obj\Debug\netcoreapp2.1\WebAPI.dll
+C:\Users\ea\Downloads\Asp.Net-Core-Web-API-and-Angular-7-CRUD-master\WebAPI\WebAPI\obj\Debug\netcoreapp2.1\WebAPI.pdb
