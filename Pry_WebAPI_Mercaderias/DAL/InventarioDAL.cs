@@ -1,4 +1,5 @@
 ﻿using com.mercaderias.WebAPI.Models;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -25,7 +26,7 @@ namespace com.mercaderias.DAL.inventario
                 {
                     listaInventarios = context.inventarioEntity.Where(x => (x.Codigo == codigo
                     || codigo == "")
-                    && (x.Tipo == NombreTipo || NombreTipo == "")
+                    || (x.Tipo == NombreTipo || NombreTipo == "")
                     ).ToList();
                 }
                 return listaInventarios;
@@ -59,7 +60,7 @@ namespace com.mercaderias.DAL.inventario
             }
         }
 
-        public object ListarTiposInventario(TipoInventario tipoInv_entity)
+        public object ListarTiposInventario(string objTipoInv)
         {
             List<TipoInventario> listaTiposInventario = new List<TipoInventario>();
             try
@@ -67,7 +68,7 @@ namespace com.mercaderias.DAL.inventario
                 using (var context = _dbContext)
                 {
                     listaTiposInventario = context.tipoInventarioEntity.Where(x => (
-                    x.NombreTipoInventario == tipoInv_entity.NombreTipoInventario || tipoInv_entity.NombreTipoInventario == "")
+                    x.NombreTipo == objTipoInv || objTipoInv == "")
                     ).ToList();
                 }
                 return listaTiposInventario;
@@ -82,17 +83,48 @@ namespace com.mercaderias.DAL.inventario
             }
         }
 
-        public object InsInventario(Inventario invEntity)
+        public object InsInventarioYarts(object invYarts)
         {
-            int res_InvInsertado;
+            int res_ArtsInsertados;
             try
             {
                 using (var context = _dbContext)
                 {
-                    context.inventarioEntity.Add(invEntity);
-                    res_InvInsertado = context.SaveChanges();
+                    using (var transaction = context.Database.BeginTransaction())
+                    {
+                        try
+                        {
+                            JObject data = JObject.FromObject(invYarts);
+                            var inv = data.GetValue("inventario").ToObject<Inventario>();
+                            var articulos = data.GetValue("articulos").ToObject<List<Articulo>>();
+
+                            context.inventarioEntity.Add(inv);
+                            context.SaveChanges();
+
+                            int res_invId = inv.Id;
+
+                            foreach (var artItm in articulos)
+                            {
+                                artItm.IdInventario = res_invId;
+                            }
+
+                            context.articulo_entity.AddRange(articulos);
+                            res_ArtsInsertados = context.SaveChanges();
+
+                            transaction.Commit();
+
+                            return  new { invId = res_invId
+                                , numArtsInsertados = res_ArtsInsertados };
+                        }
+                        catch (Exception ex)
+                        {
+                            // Revertir la transacción en caso de error
+                            transaction.Rollback();
+                            return ex.Message;
+                        }
+                    }
                 }
-                return res_InvInsertado;
+                
             }
             catch (SqlException ex)
             {

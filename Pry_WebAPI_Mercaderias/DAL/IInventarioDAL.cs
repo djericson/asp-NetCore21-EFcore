@@ -8,12 +8,12 @@ namespace com.mercaderias.DAL.inventario
 {
     public interface IInventarioDAL
     {
-        object ListarInventarios(string codigo = "", string NombreTipo = "");
+        object ListarInventarios(string codigo = "", string nombreTipo = "");
 
         object GetInventarioById(int idInventario);
 
-        object ListarTiposInventario(TipoInventario tipoInv_entity);
+        object ListarTiposInventario(string objTipoInv);
 
-        object InsInventario(Inventario invEntity);
+        object InsInventarioYarts(object invEntity);
     }
 }

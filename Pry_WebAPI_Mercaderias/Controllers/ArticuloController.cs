@@ -18,9 +18,9 @@ namespace com.mercaderias.WebAPI.Controllers
             obj_ArtDal = new ArticuloDAL(dbContext);
         }
 
-        //api/articulos/1
+        //api/articulo/1
         [HttpGet("{idInv}")]
-        //[Route("api/articulos/")]
+        //[Route("api/articulo/")]
         public IActionResult GetArticulosByIdInv(int idInv)
         {
             var res_listaArts = obj_ArtDal.ListarArticulosByIdInv(idInv);
@@ -32,7 +32,7 @@ namespace com.mercaderias.WebAPI.Controllers
             else return Ok(res_listaArts);
         }
 
-        //api/articulos/?idInvNew=1
+        //api/articulo?idInvNew=1
         [HttpPost]
         public IActionResult InsArticulos([FromBody] Articulo[] objArticulos, int idInvNew)
         {

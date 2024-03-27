@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -42,6 +43,15 @@ namespace com.mercaderias
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            ReadOnlyCollection<TimeZoneInfo> zones = TimeZoneInfo.GetSystemTimeZones();
+            Console.WriteLine("The local system has the following {0} time zones", zones.Count);
+            foreach (TimeZoneInfo zone in zones)
+                Console.WriteLine(zone.Id);
+
+            var timeZone = TimeZoneInfo.FindSystemTimeZoneById("SA Pacific Standard Time");
+            //TimeZoneInfo.Local = timeZone;
+            TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow
+                , timeZone);
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

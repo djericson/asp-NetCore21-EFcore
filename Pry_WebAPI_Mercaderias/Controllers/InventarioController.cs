@@ -1,8 +1,9 @@
 ﻿using com.mercaderias.DAL.inventario;
 using com.mercaderias.WebAPI.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace com.mercaderias.inventario.Controllers
 {
@@ -19,28 +20,29 @@ namespace com.mercaderias.inventario.Controllers
 
         Inventario[] listaInvPrueba = new Inventario[]
         {
-            new Inventario {Id=1, Codigo ="Producto 1", Tipo="Categoria 1"},
-            new Inventario {Id=2, Codigo ="Producto 2", Tipo="Categoria 2"},
-            new Inventario {Id=3, Codigo="Producto 3", Tipo="Categoria 3"}
+            new Inventario {Id=1, Codigo ="Inv-1", Tipo="TOTAL"},
+            new Inventario {Id=2, Codigo ="Inv-2", Tipo="PARCIAL"},
+            new Inventario {Id=3, Codigo ="Inv-3", Tipo="TOTAL"}
         };
-
+		
         [HttpPost("inventariosp")]
         public IEnumerable<Inventario> GetInventariosPrueba()
         {
             return listaInvPrueba;
         }
-
+		
         [HttpGet]
-        public IActionResult GetInventarios(string codigo = "", string NombreTipo = "")
+        public IActionResult GetInventarios(string codigo = "", string nombreTipo = "")
         {
-            var res_listaInv = obj_InvDal.ListarInventarios(codigo, NombreTipo);
+            var res_listaInv = obj_InvDal.ListarInventarios(codigo, nombreTipo);
             if (res_listaInv == null)
             {
                 return NotFound();
             }
             if (res_listaInv.GetType() != typeof(List<Inventario>))
                 return BadRequest(res_listaInv);
-            else return Ok(res_listaInv);
+            else
+                return Ok(new { json = res_listaInv });
         }
 
         [HttpGet("{id}")]
@@ -56,27 +58,41 @@ namespace com.mercaderias.inventario.Controllers
             else return Ok(res_inventario);
         }
 
-        [HttpPost]
-        public IActionResult ListarTiposInventario([FromBody] TipoInventario tipoInv_entity)
+        [HttpGet("tipos-inventario")]
+        public IActionResult ListarTiposInventario(string nombreTipo="")
         {
-            var res_listaTiposInv = obj_InvDal.ListarTiposInventario(tipoInv_entity);
-            if (res_listaTiposInv == null)
+            var res_listaTiposInv = obj_InvDal.ListarTiposInventario(nombreTipo);
+            if (nombreTipo == null)
             {
                 return NotFound();
             }
-            if (res_listaTiposInv.GetType() != typeof(List<Inventario>))
+            if (res_listaTiposInv.GetType() != typeof(List<TipoInventario>))
                 return BadRequest(res_listaTiposInv);
             else return Ok(res_listaTiposInv);
         }
-
-        [HttpPost]
-        public IActionResult InsAltaInventario(Inventario invEntity)
+        bool IsAnonymousType(object obj)
         {
-            var objArtsInsertados = obj_InvDal.InsInventario(invEntity);
-            if (objArtsInsertados.GetType() != typeof(int))
-                return BadRequest(objArtsInsertados);
-            else
-                return Ok(new { Inventario = invEntity.Id , res= objArtsInsertados });
+            return obj.GetType().GetCustomAttributes(typeof(CompilerGeneratedAttribute), false).Length > 0;
+        }
+        [HttpPost]
+        public IActionResult InsAltaInventario([FromBody] object invNartsEntity)
+        {
+            try
+            {
+                var objInv_ArtsInsertados = obj_InvDal.InsInventarioYarts(invNartsEntity);
+                if (!IsAnonymousType(objInv_ArtsInsertados))
+                    return BadRequest(objInv_ArtsInsertados);
+                else
+                {
+                    dynamic res = objInv_ArtsInsertados;
+                    return Ok(new { res.invId, res.numArtsInsertados }
+                    );
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
